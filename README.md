@@ -96,7 +96,7 @@ npm run build:pro-image
 ```
 
 ## CI/CD
-This repo has Continuous Delivery (in process) and Continuous Integration thanks to [github actions](https://github.com/features/actions). Every commit pushed to the `develop` branch start up the jobs.
+This repo has Continuous Delivery (in process) and Continuous Integration thanks to [github actions](https://github.com/features/actions). Every commit pushed to the `main` branch start up the jobs.
 
 ## Docker hub repository
 [Airquality repository](https://hub.docker.com/repository/docker/yosamac/airquality)
