@@ -1,0 +1,123 @@
+{
+  "name": "airquality",
+  "version": "1.0.0",
+  "description": "Analyse the air quality of a region in Madrid",
+  "author": "Yosnier Samon <yosamac@gmail.com>",
+  "keywords": [
+    "api-rest",
+    "postgreSQL",
+    "sql",
+    "airquality",
+    "challenge"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yosamac/airquaility.git"
+  },
+  "homepage": "https://github.com/yosamac/airquality#readme",
+  "bugs": {
+    "url": "https://github.com/yosamac/airquality/issues"
+  },
+  "engines": {
+    "node": ">=14.16.0",
+    "npm": ">=6.14"
+  },
+  "license": "ISC",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "format": "npm run lint:fix",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "lint": "eslint '{src,apps,libs,test}/**/*.ts'",
+    "lint:fix": "eslint --cache '{src,apps,libs,test}/**/*.ts' --fix",
+    "lint:report": "eslint '{src,test}/**/*.ts' -f json > eslint-report.json",
+    "pretest": "npm run build",
+    "test": "jest",
+    "test:unit": "jest --config ./test/unit.json",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:e2e": "jest --config ./test/e2e/jest-e2e.json",
+    "build:dev-image": "docker build . -t ${npm_package_name}:${npm_package_version}-$(git rev-parse --short HEAD) --no-cache",
+    "build:pro-image": "docker build . -t ${npm_package_name}:${npm_package_version} --no-cache",
+    "cm": "git-cz",
+    "commitmsg": "validate-commit-msg",
+    "release": "standard-version",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@nestjs/common": "^7.6.5",
+    "@nestjs/config": "^0.4.0",
+    "@nestjs/core": "^7.6.5",
+    "@nestjs/platform-express": "^7.6.5",
+    "@nestjs/swagger": "^4.7.9",
+    "joi": "^17.4.0",
+    "lodash": "^4.17.21",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^7.5.4",
+    "@nestjs/schematics": "^7.2.6",
+    "@nestjs/testing": "^7.6.5",
+    "@types/cache-manager": "^3.4.0",
+    "@types/express": "^4.17.9",
+    "@types/hapi__joi": "^16.0.12",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.39",
+    "@types/rx": "^4.1.1",
+    "@types/supertest": "^2.0.9",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "commitizen": "^4.2.2",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.19.1",
+    "husky": "^4.3.6",
+    "jest": "^25.4.0",
+    "nock": "^13.0.11",
+    "standard-version": "^9.1.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "25.4.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.7.4",
+    "validate-commit": "^3.4.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": ".",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "./coverage",
+    "collectCoverageFrom": [
+      "./src/**/*.ts",
+      "!./src/config/*.ts",
+      "!./src/main.ts",
+      "!**/node_modules/**",
+      "!**/dist/**"
+    ],
+    "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm run test:cov && npm run lint"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
