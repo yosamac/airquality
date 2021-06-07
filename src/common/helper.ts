@@ -15,7 +15,7 @@ function handlerHelper(error): void | never {
     if ('statusCode' in error) {
         throw new ServiceException(
             error.statusCode,
-            error.msg || HttpStatus[error.statusCode]
+            error.msg || error.error[0] || HttpStatus[error.statusCode]
         );
     }
 
@@ -34,6 +34,9 @@ export const handleError: (
                 JSON.stringify(err, null, 4)
             );
 
-            handlerHelper(err?.response?.data || err);
+            handlerHelper({
+                ...err?.response?.data,
+                statusCode: err?.response?.status
+            } || err);
         }
     };
