@@ -27,9 +27,11 @@ export class CartoService {
             SELECT station_id, ${q.select}
             FROM  aasuero.test_airquality_measurements as measurements
             INNER JOIN aasuero.test_airquality_stations as stations USING(station_id)
-            ${ q.where ? `WHERE  ${q.where}` : '' }
+            ${q.where ? `WHERE  ${q.where}` : ''}
+
             GROUP BY station_id
         `;
+
         return this.httpService.get(`${this.cartoAPIUrl}/sql?q=${query}`)
             .toPromise().then(res => res.data.rows);
     }
