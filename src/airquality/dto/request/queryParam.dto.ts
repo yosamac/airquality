@@ -31,7 +31,7 @@ export const QueryParamSchema = Joi.object({
     from: Joi.date().label('from').description('Time range start'),
     to: Joi.when('from', {
         is: Joi.exist(),
-        then: Joi.date().greater(Joi.ref('from')).required()
+        then: Joi.date().greater(Joi.ref('from')).required(),
     }).label('to').description('Time range end'),
     stations: Joi.string().label('stations').description('Stations listed'),
     type: Joi.string().label('type').description('Geometry type'),

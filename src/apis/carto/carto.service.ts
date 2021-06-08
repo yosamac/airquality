@@ -24,16 +24,16 @@ export class CartoService {
 
     getStatsForStations(q: Query): Promise<any> {
         const query = `
-            SELECT station_id, ${q.select}
+            SELECT station_id ${q.select ? `, ${q.select}` : '' }
             FROM  aasuero.test_airquality_measurements as measurements
             INNER JOIN aasuero.test_airquality_stations as stations USING(station_id)
-            ${q.where ? `WHERE  ${q.where}` : ''}
-
+            ${ q.where ? `WHERE  ${q.where}` : '' } 
             GROUP BY station_id
         `;
-
+        console.log(query);
         return this.httpService.get(`${this.cartoAPIUrl}/sql?q=${query}`)
             .toPromise().then(res => res.data.rows);
+
     }
 
 }

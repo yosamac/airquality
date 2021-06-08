@@ -3,8 +3,8 @@ import { omit } from 'lodash/fp';
 
 const omitFields = omit([
   'cartodb_id',
-  'the_geom',
-  'the_geom_webmercator',
+  // 'the_geom',
+  // 'the_geom_webmercator',
   'created_at',
   'updated_at'
 ]);
