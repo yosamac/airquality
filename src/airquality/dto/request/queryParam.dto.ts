@@ -9,17 +9,17 @@ export class QueryParamDto {
     @ApiProperty({ required: false })
     statsMeasure: string;
     @ApiProperty({ required: false, enum:['week', 'day', 'hour'] })
-    step: string;
+    step?: string;
     @ApiProperty({ required: false })
     from: Date;
     @ApiProperty({ required: false })
-    to: Date;
+    to?: Date;
     @ApiProperty({ required: false })
-    stations: string;
+    stations?: string;
     @ApiProperty({ required: false })
-    type: string;
+    type?: string;
     @ApiProperty({ required: false, isArray: true })
-    coordinates: number;
+    coordinates?: number;
 }
 
 export const QueryParamSchema = Joi.object({
