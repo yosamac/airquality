@@ -1,0 +1,21 @@
+/* eslint-disable @typescript-eslint/camelcase */
+export const cartoResponseFake = [{
+    station_id: 'aq_camino_del_sur',
+    the_geom: '0101000020E6100000A45A0BD1A92A0DC026073703D1414440',
+    population: 2349.744873046875,
+    no2_min: 2.39543442886014,
+    no2_max: 77.8940163194194,
+    co_avg: 0.5176757106930726,
+    co_max: 1.19655050474432,
+    co_min: 0.100832698026565,
+    no2_avg: 39.0522546004568,
+    o3_avg: 54.077147005258446,
+    o3_max: 104.867462219915,
+    o3_min: 8.47455551333989,
+    pm10_avg: 30.563942455905686,
+    pm10_max: 64.7529249737143,
+    pm10_min: 6.55178875983713,
+    pm2_5_avg: 22.915854175642938,
+    pm2_5_max: 44.9148729408709,
+    pm2_5_min: 6.15292849594162,
+}];

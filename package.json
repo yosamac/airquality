@@ -78,7 +78,6 @@
     "eslint-plugin-import": "^2.19.1",
     "husky": "^4.3.6",
     "jest": "^25.4.0",
-    "nock": "^13.0.11",
     "standard-version": "^9.1.0",
     "supertest": "^4.0.2",
     "ts-jest": "25.4.0",
