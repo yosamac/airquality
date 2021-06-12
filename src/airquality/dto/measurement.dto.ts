@@ -13,6 +13,10 @@ export class MeasurementDto {
     @ApiProperty({ required: false })
     station_id: string;
     @ApiProperty({ required: false })
+    geom: string;
+    @ApiProperty({ required: false })
+    population: number;
+    @ApiProperty({ required: false })
     timeInstant?: string;
     @ApiProperty({ required: false })
     so2?: Stats;

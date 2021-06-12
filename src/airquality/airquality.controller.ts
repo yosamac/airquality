@@ -29,6 +29,11 @@ export class AirQualityController {
         type: MeasurementDto,
     })
     @ApiResponse({
+        status: HttpStatus.BAD_REQUEST,
+        description: 'Payload doesn\'t meet the schema',
+        type: ServiceHttpResponse,
+    })
+    @ApiResponse({
         status: HttpStatus.INTERNAL_SERVER_ERROR,
         description: 'Internal error',
         type: ServiceHttpResponse

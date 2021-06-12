@@ -30,6 +30,9 @@ export function toMeasurementDto(
   return {
      // eslint-disable-next-line @typescript-eslint/camelcase
     station_id : dataClean.station_id,
+    geom: dataClean.the_geom,
+    timeInstant: dataClean.timeInstant,
+    population: dataClean.population,
     ...stats
   };
 }
