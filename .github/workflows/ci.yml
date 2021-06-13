@@ -25,7 +25,7 @@ jobs:
       run: npm run test:cov
     # - name: Generate release
     #   run: |
-    #     git config --global user.email ci@dare.com
+    #     git config --global user.email ci@airquality.com
     #     git config --global user.name CI
     #     npm run release
     #     git push --follow-tags origin main
@@ -39,16 +39,16 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: ${{ github.repository }}
         tags: dev-${{ steps.slug.outputs.sha8 }}
-    # - name: Deploy to cluster
-    #   uses: steebchen/kubectl@master
-    #   env:
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-    #   with:
-    #     args: set image --record deployment/airquality  public=${{ github.repository }}:dev-${{ steps.slug.outputs.sha8 }}
-    # - name: Verify deployment 
-    #   uses: steebchen/kubectl@master
-    #   env:
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-    #     KUBECTL_VERSION: "1.15"
-    #   with:
-    #     args: '"rollout status deployment/airquality"'
+    - name: Deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: set image --record deployment/airquality  public=${{ github.repository }}:dev-${{ steps.slug.outputs.sha8 }}
+    - name: Verify deployment 
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        KUBECTL_VERSION: "1.15"
+      with:
+        args: '"rollout status deployment/airquality"'
