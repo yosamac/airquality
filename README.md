@@ -94,6 +94,16 @@ npm run build:dev-image
 ```shell
 npm run build:pro-image
 ```
+### Docker-compose 
+
+Start up the system by running the local development environment
+  using ([docker-compose](https://docs.docker.com/compose/)).
+  ```
+  $ docker-compose up --build
+  ```
+
+Go to [API Doc](http://localhost/api)
+
 
 ## CI/CD
 This repo has Continuous Delivery (in process) and Continuous Integration thanks to [github actions](https://github.com/features/actions). Every commit pushed to the `main` branch start up the jobs.

@@ -44,7 +44,7 @@ jobs:
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: set image --record deployment/airquality  public=${{ github.repository }}:dev-${{ steps.slug.outputs.sha8 }}
+        args: set image --record deployment/airquality  airquality=${{ github.repository }}:dev-${{ steps.slug.outputs.sha8 }}
     - name: Verify deployment 
       uses: steebchen/kubectl@master
       env:

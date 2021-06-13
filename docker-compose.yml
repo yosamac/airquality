@@ -1,0 +1,30 @@
+version: '3.7'
+
+networks:
+  airquality-network:
+
+# docker-compose.yml
+# Add this top-level entry
+services:
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+        - "80:80"
+    depends_on:
+      - airquality
+    networks: 
+      - airquality-network
+    
+  airquality:
+    image: yosamac/airquality:dev-81e555c # from docker hub: yosamac/airquality:dev-6e32e82
+    container_name: airquality
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile
+    expose: 
+      - "3000"
+    networks:
+      - airquality-network
+    environment: 
+      - LOG_LEVEL=INFO
