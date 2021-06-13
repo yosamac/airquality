@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: development
+  name: airquality
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.22.0 (955b78124)
+  labels:
+    app: airquality
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airquality
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.22.0 (955b78124)
+      labels:
+        io.kompose.network/airquality-network: "true"
+        app: airquality
+    spec:
+      containers:
+        - env:
+            - name: LOG_LEVEL
+              value: INFO
+          image: yosamac/airquality:dev-81e555c
+          name: airquality
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: development
+  name: airquality
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.22.0 (955b78124)
+  labels:
+    app: airquality
+spec:
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: airquality

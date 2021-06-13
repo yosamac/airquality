@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: development
+  creationTimestamp: null
+  name: airquality-network
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/airquality-network: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/airquality-network: "true"
