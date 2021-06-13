@@ -51,4 +51,36 @@ describe('AirQualityController (e2e)', () => {
                 .expect(HttpStatus.BAD_REQUEST);
         });
     });
+
+    describe ('/airquality/timeseries', () => {
+
+        const queryParam = {
+            variables: 'no2,co, o3, pm10, pm2_5',
+            statsMeasure: 'min,max, avg',
+            from: new Date('10-01-2017'),
+            to: new Date('10-01-2021'),
+            stations: 'station_1, station_2',
+            step: '1 week'
+        };
+
+        it('/ (GET) 200', () => {
+            return request(app.getHttpServer())
+                .get('/airquality/timeseries').query(queryParam)
+                .expect(HttpStatus.OK);
+        });
+
+        it('Carto API / (GET) 400 ', () => {
+            queryParam.variables = 'invalid_field';
+            return request(app.getHttpServer())
+                .get('/airquality/timeseries').query(queryParam)
+                .expect(HttpStatus.BAD_REQUEST);
+        });
+
+        it('/ (GET) 400', () => {
+            delete queryParam.step;
+            return request(app.getHttpServer())
+                .get('/airquality/timeseries').query(queryParam)
+                .expect(HttpStatus.BAD_REQUEST);
+        });
+    });
 });
