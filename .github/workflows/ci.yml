@@ -44,11 +44,11 @@ jobs:
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: set image --record deployment/airquality  airquality=${{ github.repository }}:dev-${{ steps.slug.outputs.sha8 }}
+        args: set image --record deployment/airquality  airquality=${{ github.repository }}:dev-${{ steps.slug.outputs.sha8 }} -n development
     - name: Verify deployment 
       uses: steebchen/kubectl@master
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        KUBECTL_VERSION: "1.15"
+        KUBECTL_VERSION: "1.19"
       with:
-        args: '"rollout status deployment/airquality"'
+        args: '"rollout status deployment/airquality -n development"'
