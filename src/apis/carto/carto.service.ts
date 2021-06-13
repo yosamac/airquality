@@ -19,7 +19,6 @@ export class CartoService {
     getStatsForStations(q: Query): Promise<any> {
         const query = buildQuery(q);
         this.logger.info(query);
-        this.logger.info(`${this.cartoAPIUrl}/sql?q=${query}`);
         return this.httpService.get(`${this.cartoAPIUrl}/sql?q=${query}`)
             .toPromise().then(res => {
                 return res.data.rows;

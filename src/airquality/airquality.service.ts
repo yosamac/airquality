@@ -22,19 +22,34 @@ export class AirQualityService {
     getStatsMeasure(queryParam: QueryParamDto): Promise<MeasurementDto[]> {
         this.logger.info('Getting stats measurements for stations');
 
-        const variables = queryParam?.variables?.split(',');
-        const measurements = queryParam?.statsMeasure?.split(',');
-        const stations = queryParam?.stations?.split(',');
+        const { variables, measurements, stations } = this.splitParams(queryParam);
 
         const query: Query = {
             select: buildSelect(variables, measurements),
             where: stations
                 ? buildWhere(stations, queryParam.from, queryParam.to)
                 : undefined,
+            timeseries:{
+                step: queryParam.step,
+                startDate: queryParam.from,
+                endDate: queryParam.to
+            }
         };
 
         return this.cartoService.getStatsForStations(query)
             .then(res => toMeasurementListDto(res, variables))
             .catch(err => handleError(this.logger, err));
+    }
+
+    private splitParams(queryParam: QueryParamDto) {
+        const variables = queryParam?.variables?.split(',');
+        const measurements = queryParam?.statsMeasure?.split(',');
+        const stations = queryParam?.stations?.split(',');
+
+        return {
+            variables,
+            measurements,
+            stations
+        };
     }
 }

@@ -31,7 +31,7 @@ export function toMeasurementDto(
      // eslint-disable-next-line @typescript-eslint/camelcase
     station_id : dataClean.station_id,
     geom: dataClean.the_geom,
-    timeInstant: dataClean.timeInstant,
+    timeInstant: dataClean.dd,
     population: dataClean.population,
     ...stats
   };

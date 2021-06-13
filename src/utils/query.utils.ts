@@ -31,18 +31,25 @@ export const buildWhere: (stations: string[], from: Date, to: Date) => string =
 };
 
 export const buildQuery = (q: Query) => {
+
+  const generateTimeseriesfunc = q.timeseries.step
+      ? `, generate_series('${q.timeseries.startDate}'::timestamp , '${q.timeseries.endDate}'::timestamp, '${q.timeseries.step}'::interval) dd`
+      : '';
+
   const query = `
-  SELECT station_id, stations.the_geom, population
-      ${q.select ? ', ' + q.select : '' }
-  FROM  aasuero.test_airquality_stations stations
-      JOIN aasuero.test_airquality_measurements measurements USING(station_id)
-      JOIN aasuero.esp_grid_1km_demographics grid ON ST_Intersects(grid.the_geom, stations.the_geom) 
-      
-  ${ q.where ? 'WHERE ' + q.where : '' }
-  GROUP BY 
-      station_id,  
-      stations.the_geom,
-      grid.population
-`;
+      SELECT station_id, stations.the_geom, population
+          ${generateTimeseriesfunc}
+          ${q.select ? ', ' + q.select : '' }
+        
+      FROM  aasuero.test_airquality_stations stations
+          JOIN aasuero.test_airquality_measurements measurements USING(station_id)
+          JOIN aasuero.esp_grid_1km_demographics grid ON ST_Intersects(grid.the_geom, stations.the_geom) 
+          
+      ${ q.where ? 'WHERE ' + q.where : '' }
+      GROUP BY 
+          station_id,  
+          stations.the_geom,
+          grid.population
+    `;
   return query;
 }

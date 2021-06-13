@@ -43,4 +43,27 @@ export class AirQualityController {
     ): Promise<any[]> {
         return this.airQualityService.getStatsMeasure(queryParam);
     }
+
+    @Get('timeseries')
+    @HttpCode(HttpStatus.OK)
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'The time series were successfully returned',
+        type: MeasurementDto,
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_REQUEST,
+        description: 'Payload doesn\'t meet the schema',
+        type: ServiceHttpResponse,
+    })
+    @ApiResponse({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        description: 'Internal error',
+        type: ServiceHttpResponse
+    })
+    getTimeseries(
+        @Query(QueryParamPipe) queryParam: QueryParamDto,
+    ): Promise<any[]> {
+        return this.airQualityService.getStatsMeasure(queryParam);
+    }
 }

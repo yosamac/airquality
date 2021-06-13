@@ -8,7 +8,7 @@ export class QueryParamDto {
     variables: string;
     @ApiProperty({ required: false })
     statsMeasure: string;
-    @ApiProperty({ required: false, enum:['week', 'day', 'hour'] })
+    @ApiProperty({ required: false, enum:['1 week', '1 day', '1 hour'] })
     step?: string;
     @ApiProperty({ required: false })
     from: Date;
@@ -26,9 +26,13 @@ export const QueryParamSchema = Joi.object({
     variables: Joi.string().label('variable').description('Variables'),
     statsMeasure: Joi.string().lowercase()
         .label('statsMeasure').description('Statistical Measurements'),
-    step: Joi.string().valid('week', 'day', 'hour')
-        .label('step'),
-    from: Joi.date().label('from').description('Time range start'),
+    step: Joi.string().valid('1 week', '1 day', '1 hour')
+        .label('step').description('Time interval'),
+    from: Joi.when('step', {
+        is: Joi.exist(),
+        then: Joi.date().required(),
+        otherwise: Joi.date()
+    }).label('from').description('Time range start'),
     to: Joi.when('from', {
         is: Joi.exist(),
         then: Joi.date().greater(Joi.ref('from')).required(),
