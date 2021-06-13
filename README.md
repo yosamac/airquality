@@ -98,8 +98,14 @@ npm run build:pro-image
 ## CI/CD
 This repo has Continuous Delivery (in process) and Continuous Integration thanks to [github actions](https://github.com/features/actions). Every commit pushed to the `main` branch start up the jobs.
 
+
 ## Docker hub repository
 [Airquality repository](https://hub.docker.com/repository/docker/yosamac/airquality)
+
+## Authentication
+The API is not public anymore. How would you implement a mechanism to restrict and identify API's users?
+
+ -  I would implement an authorization service based on OAuth2 model, and then add a decorator to controller that it will makes requests to OAuth2 service to validate the user. This decorator should get the authorization_code fro request and validate it against authorization service.
 
 
 ## License
